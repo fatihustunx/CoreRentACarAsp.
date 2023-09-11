@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business.Constants;
+using Core.Utilities.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +14,14 @@ namespace Business.Conceretes
         {
             if(carName.Length < 2)
             {
-                throw new ArgumentException("Car name is not valid !");
+                throw new ArgumentException(Messages.CarNameIsNotValid);
             }
         }
 
         public void checkIfDailyPriceIsTrue(decimal dailyPrice)
         {
             if(dailyPrice <= 0) {
-                throw new ArgumentException("Car's daily price is not valid !");
+                throw new ArgumentException(Messages.CarDailyPriceIsNotValid);
             }
         }
     }

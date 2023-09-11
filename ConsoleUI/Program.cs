@@ -9,18 +9,33 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            ICarService carService = new CarManager(new EfCarDal(), new CarBusinessRules());
-
+            // IoC !!
             //InMemoryCar(carService);
             //EfCarBrandColor(carService);
 
-            foreach (var item in carService.GetCarDetails())
-            {
-                Console.WriteLine(item.Id + " : " + item.BrandName 
-                    + " : " + item.ColorName + " : " + item.DailyPrice);
-            }
+            NewMethod();
 
             Console.WriteLine("\nHello, World!");
+        }
+
+        private static void NewMethod()
+        {
+            ICarService carService = new CarManager(new EfCarDal(), new CarBusinessRules());
+
+            var result = carService.GetCarDetails();
+
+            if (result.Success)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.Id + " : " + item.BrandName
+                        + " : " + item.ColorName + " : " + item.DailyPrice);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void EfCarBrandColor(ICarService carService)
