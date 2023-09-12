@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Conceretes
+namespace Business.Rules
 {
     public class CarBusinessRules
     {
         public void checkIfCarNameIsTrue(string carName)
         {
-            if(carName.Length < 2)
+            if (carName.Length < 2)
             {
                 throw new ArgumentException(Messages.CarNameIsNotValid);
             }
@@ -20,7 +20,8 @@ namespace Business.Conceretes
 
         public void checkIfDailyPriceIsTrue(decimal dailyPrice)
         {
-            if(dailyPrice <= 0) {
+            if (dailyPrice <= 0)
+            {
                 throw new ArgumentException(Messages.CarDailyPriceIsNotValid);
             }
         }

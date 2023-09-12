@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.Conceretes;
+using Business.Rules;
 using DataAccess.Conceretes.EntityFramework;
 using DataAccess.Conceretes.InMemory;
 
@@ -13,7 +14,11 @@ namespace ConsoleUI
             //InMemoryCar(carService);
             //EfCarBrandColor(carService);
 
-            NewMethod();
+            //UserCustomers();
+
+            //NewMethod();
+
+            OperationsOfRental();
 
             Console.WriteLine("\nHello, World!");
         }
@@ -35,6 +40,44 @@ namespace ConsoleUI
             else
             {
                 Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void OperationsOfRental()
+        {
+            RentalBusinessRules rentalBusinessRules = new RentalBusinessRules();
+            RentalManager rentalManager = new RentalManager(new EfRentalDal(), rentalBusinessRules);
+
+            rentalBusinessRules.Set_rentalService(rentalManager);
+
+            rentalManager.Add(new Entities.Conceretes.Rental { Id = 3, CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
+
+            var result = rentalManager.GetAll();
+
+            if (result.Success)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.Id);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void UserCustomers()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new Entities.Conceretes.User { Id = 1, FirstName = "Fatih", LastName = "Üstün", Email = "abc@gmail.com", Password = "password" });
+
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(new Entities.Conceretes.Customer { Id = 1, UserId = 1, CompanyName = "Wistaster" });
+            var result = customerManager.GetAll();
+            foreach (var item in result.Data)
+            {
+                Console.WriteLine(item.CompanyName);
             }
         }
 
