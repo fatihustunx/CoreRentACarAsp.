@@ -11,6 +11,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             // IoC !!
+
             //InMemoryCar(carService);
             //EfCarBrandColor(carService);
 
@@ -50,7 +51,7 @@ namespace ConsoleUI
 
             rentalBusinessRules.Set_rentalService(rentalManager);
 
-            rentalManager.Add(new Entities.Conceretes.Rental { Id = 3, CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
+            //rentalManager.Add(new Entities.Conceretes.Rental { Id = 3, CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
 
             var result = rentalManager.GetAll();
 
