@@ -1,5 +1,7 @@
 ﻿using Business.Abstracts;
-using Business.Rules;
+using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
@@ -14,17 +16,24 @@ namespace Business.Conceretes
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        RentalBusinessRules _rentalBusinessRules;
 
-        public RentalManager(IRentalDal rentalDal, RentalBusinessRules rentalBusinessRules)
+        public RentalManager(IRentalDal rentalDal)
         {
             _rentalDal = rentalDal;
-            _rentalBusinessRules = rentalBusinessRules;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
-            _rentalBusinessRules.checkIfCarReturnDateIsNull(rental.CarId);
+            var result = GetAllByCarId(rental.CarId);
+
+            foreach (var item in result.Data)
+            {
+                if (item.ReturnDate == null)
+                {
+                    throw new Exception(Messages.RentalCarIsNotReturn);
+                }
+            }
 
             _rentalDal.Add(rental);
             return new SuccessResult();

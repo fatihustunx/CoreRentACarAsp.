@@ -1,6 +1,5 @@
 ﻿using Business.Abstracts;
 using Business.Conceretes;
-using Business.Rules;
 using DataAccess.Conceretes.EntityFramework;
 using DataAccess.Conceretes.InMemory;
 
@@ -26,7 +25,7 @@ namespace ConsoleUI
 
         private static void NewMethod()
         {
-            ICarService carService = new CarManager(new EfCarDal(), new CarBusinessRules());
+            ICarService carService = new CarManager(new EfCarDal());
 
             var result = carService.GetCarDetails();
 
@@ -46,10 +45,7 @@ namespace ConsoleUI
 
         private static void OperationsOfRental()
         {
-            RentalBusinessRules rentalBusinessRules = new RentalBusinessRules();
-            RentalManager rentalManager = new RentalManager(new EfRentalDal(), rentalBusinessRules);
-
-            rentalBusinessRules.Set_rentalService(rentalManager);
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
             //rentalManager.Add(new Entities.Conceretes.Rental { Id = 3, CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
 

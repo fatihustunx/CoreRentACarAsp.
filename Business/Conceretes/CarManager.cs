@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
-using Business.Rules;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
@@ -15,18 +16,15 @@ namespace Business.Conceretes
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        CarBusinessRules _carBusinessRules;
 
-        public CarManager(ICarDal carDal, CarBusinessRules carBusinessRules)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
-            _carBusinessRules = carBusinessRules;
         }
 
+        [ValidationAspect(typeof(CarValidatior))]
         public IResult Add(Car car)
         {
-            _carBusinessRules.checkIfCarNameIsTrue("CarName");
-            _carBusinessRules.checkIfDailyPriceIsTrue(car.DailyPrice);
             _carDal.Add(car);
 
             return new SuccessResult();

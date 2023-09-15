@@ -1,4 +1,6 @@
 ﻿using Business.Abstracts;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
@@ -19,6 +21,7 @@ namespace Business.Conceretes
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
