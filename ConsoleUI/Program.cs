@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Business.BusinessRules;
 using Business.Conceretes;
 using DataAccess.Conceretes.EntityFramework;
 using DataAccess.Conceretes.InMemory;
@@ -45,7 +46,7 @@ namespace ConsoleUI
 
         private static void OperationsOfRental()
         {
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal(),new RentalBusinessRules(new EfRentalDal()));
 
             //rentalManager.Add(new Entities.Conceretes.Rental { Id = 3, CarId = 3, CustomerId = 1, RentDate = DateTime.Now });
 

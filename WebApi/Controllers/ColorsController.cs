@@ -24,7 +24,7 @@ namespace WebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpGet("get")]
@@ -35,7 +35,7 @@ namespace WebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpPost("update")]
@@ -57,7 +57,7 @@ namespace WebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
 
         [HttpDelete("delete")]
@@ -68,7 +68,7 @@ namespace WebApi.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest();
+            return BadRequest(result);
         }
     }
 }

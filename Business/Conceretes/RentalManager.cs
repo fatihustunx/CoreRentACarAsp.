@@ -1,7 +1,9 @@
 ﻿using Business.Abstracts;
+using Business.BusinessRules;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
@@ -16,27 +18,32 @@ namespace Business.Conceretes
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
+        IRentalBusinessRules _rentalBusinessRules;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, IRentalBusinessRules rentalBusinessRules)
         {
             _rentalDal = rentalDal;
+            _rentalBusinessRules = rentalBusinessRules;
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IResult Add(Rental rental)
+        public IDataResult<List<IResult>> Add(Rental rental)
         {
-            var result = GetAllByCarId(rental.CarId);
 
-            foreach (var item in result.Data)
+            var errorResults = Rules.Run(_rentalBusinessRules
+                .checkIfRentalCarReturnDateIsNull(rental.CarId));
+
+            if(errorResults.Any())
             {
-                if (item.ReturnDate == null)
-                {
-                    throw new Exception(Messages.RentalCarIsNotReturn);
-                }
+                return new ErrorDataResult<List<IResult>>(errorResults);
             }
 
             _rentalDal.Add(rental);
-            return new SuccessResult();
+
+            List<IResult> result = new List<IResult>();
+            result.Add(new SuccessDataResult<Rental>(rental));
+
+            return new SuccessDataResult<List<IResult>>(result);
         }
 
         public IResult Delete(Rental rental)

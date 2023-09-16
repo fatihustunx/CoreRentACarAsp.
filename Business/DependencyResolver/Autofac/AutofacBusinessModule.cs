@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstracts;
+using Business.BusinessRules;
 using Business.Conceretes;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
@@ -35,6 +36,7 @@ namespace Business.DependencyResolver.Autofac
 
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
+            builder.RegisterType<RentalBusinessRules>().As<IRentalBusinessRules>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
