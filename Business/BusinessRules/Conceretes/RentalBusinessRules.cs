@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Business.BusinessRules.Abstracts;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.BusinessRules
+namespace Business.BusinessRules.Conceretes
 {
     public class RentalBusinessRules : IRentalBusinessRules
     {

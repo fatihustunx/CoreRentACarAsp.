@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.BusinessRules;
+using Business.BusinessRules.Conceretes;
 using Business.Conceretes;
 using DataAccess.Conceretes.EntityFramework;
 using DataAccess.Conceretes.InMemory;
@@ -19,7 +20,7 @@ namespace ConsoleUI
 
             //NewMethod();
 
-            OperationsOfRental();
+            //OperationsOfRental();
 
             Console.WriteLine("\nHello, World!");
         }

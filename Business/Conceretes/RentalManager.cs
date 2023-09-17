@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.BusinessRules;
+using Business.BusinessRules.Abstracts;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -27,23 +28,20 @@ namespace Business.Conceretes
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public IDataResult<List<IResult>> Add(Rental rental)
+        public IResult Add(Rental rental)
         {
 
             var errorResults = Rules.Run(_rentalBusinessRules
                 .checkIfRentalCarReturnDateIsNull(rental.CarId));
 
-            if(errorResults.Any())
+            if(errorResults != null)
             {
-                return new ErrorDataResult<List<IResult>>(errorResults);
+                return errorResults;
             }
 
             _rentalDal.Add(rental);
 
-            List<IResult> result = new List<IResult>();
-            result.Add(new SuccessDataResult<Rental>(rental));
-
-            return new SuccessDataResult<List<IResult>>(result);
+            return new SuccessResult();
         }
 
         public IResult Delete(Rental rental)

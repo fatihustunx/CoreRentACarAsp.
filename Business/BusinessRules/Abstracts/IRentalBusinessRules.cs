@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.BusinessRules
+namespace Business.BusinessRules.Abstracts
 {
     public interface IRentalBusinessRules
     {

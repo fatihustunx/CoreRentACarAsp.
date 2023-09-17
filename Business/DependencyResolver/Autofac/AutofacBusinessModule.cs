@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
 using Business.Abstracts;
-using Business.BusinessRules;
+using Business.BusinessRules.Abstracts;
+using Business.BusinessRules.Conceretes;
 using Business.Conceretes;
 using Castle.DynamicProxy;
+using Core.Utilities.AFiles;
 using Core.Utilities.Interceptors;
 using DataAccess.Abstracts;
 using DataAccess.Conceretes.EntityFramework;
@@ -36,7 +38,13 @@ namespace Business.DependencyResolver.Autofac
 
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
             builder.RegisterType<RentalManager>().As<IRentalService>().SingleInstance();
-            builder.RegisterType<RentalBusinessRules>().As<IRentalBusinessRules>().SingleInstance();
+            builder.RegisterType<RentalBusinessRules>().As<IRentalBusinessRules>().SingleInstance(); 
+
+            builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<CarImageBusinessRules>().As<ICarImageBusinessRules>().SingleInstance();
+
+            builder.RegisterType<FileOperations>().As<IFileOperations>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

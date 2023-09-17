@@ -12,9 +12,12 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarValidatior()
         {
-            RuleFor(c => c.Id).NotNull().NotEmpty();
+            //RuleFor(c=> c.Id).NotNull().NotEmpty();
             RuleFor(c => c.BrandId).NotNull().NotEmpty();
             RuleFor(c => c.ColorId).NotNull().NotEmpty();
+
+            RuleFor(c => c.Name).NotEmpty().MinimumLength(2);
+
             RuleFor(c => c.ModelYear).NotNull().NotEmpty();
             RuleFor(c => c.DailyPrice).NotNull().NotEmpty()
                 .GreaterThan(0);

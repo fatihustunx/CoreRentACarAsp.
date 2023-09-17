@@ -43,7 +43,7 @@ namespace Business.Conceretes
 
         public IDataResult<Car> Get(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(p=>p.Id == id));
+            return new SuccessDataResult<Car>(_carDal.Get(c=>c.Id == id));
         }
 
         public IResult Update(Car car)
