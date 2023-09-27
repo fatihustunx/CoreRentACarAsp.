@@ -1,6 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Entities.Conceretes;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
@@ -48,6 +49,16 @@ namespace Business.Conceretes
         {
             _userDal.Update(user);
             return new SuccessResult();
+        }
+
+        public IDataResult<User> GetByEmail(string email)
+        {
+            return new SuccessDataResult<User>(_userDal.Get(u=> u.Email == email));
+        }
+
+        public IDataResult<List<OperationClaim>> GetClaims(User user)
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Entities.Conceretes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,15 @@ namespace Business.Constants
         public static string RentalCarIsNotReturn = "The rental car has not been returned yet!!";
 
         public static string CarImagesLimitExceded = "Car images limit exceded!";
+
+        public static string UserAlreadyExists = "User Already Exists!";
+        public static string UserIsNotFound = "User Is Not Found!";
+
+        public static string SuccessfulRegister = "Successful Registered!";
+        public static string SuccessfulLogin = "Successful Login!";
+
+        public static string AuthorizationDenied = "Authrorization Denied!!";
+
+        public static string PasswordError = "Password is not correct!";
     }
 }

@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Conceretes
+namespace Entities.DTOs.Requests
 {
-    public class User : IEntity
+    public class UserForRegisterDto : IDto
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

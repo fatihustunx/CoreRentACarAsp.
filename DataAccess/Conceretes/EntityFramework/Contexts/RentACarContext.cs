@@ -1,4 +1,5 @@
-﻿using Entities.Conceretes;
+﻿using Core.Entities.Conceretes;
+using Entities.Conceretes;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Contexts
+namespace DataAccess.Conceretes.EntityFramework.Contexts
 {
     public class RentACarContext : DbContext
     {
@@ -23,5 +24,7 @@ namespace DataAccess.Contexts
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<CarImage> CarImages { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     }
 }

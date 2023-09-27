@@ -1,4 +1,5 @@
 ﻿using Business.Abstracts;
+using Business.BusinessAspects.Autofac.Security;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
@@ -23,6 +24,7 @@ namespace Business.Conceretes
         }
 
         [ValidationAspect(typeof(CarValidatior))]
+        [SecuredOperation("Admin,car.add")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);

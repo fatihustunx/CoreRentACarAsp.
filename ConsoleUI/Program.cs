@@ -69,7 +69,7 @@ namespace ConsoleUI
         private static void UserCustomers()
         {
             UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Add(new Entities.Conceretes.User { Id = 1, FirstName = "Fatih", LastName = "Üstün", Email = "abc@gmail.com", Password = "password" });
+            userManager.Add(new Core.Entities.Conceretes.User { Id = 1, FirstName = "Fatih", LastName = "Üstün", Email = "abc@gmail.com" });
 
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             customerManager.Add(new Entities.Conceretes.Customer { Id = 1, UserId = 1, CompanyName = "Wistaster" });

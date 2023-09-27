@@ -7,6 +7,7 @@ using Business.Conceretes;
 using Castle.DynamicProxy;
 using Core.Utilities.AFiles;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstracts;
 using DataAccess.Conceretes.EntityFramework;
 using System;
@@ -45,6 +46,9 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<CarImageBusinessRules>().As<ICarImageBusinessRules>().SingleInstance();
 
             builder.RegisterType<FileOperations>().As<IFileOperations>().SingleInstance();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
