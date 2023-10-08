@@ -1,6 +1,7 @@
 ﻿using Business.Abstracts;
 using Business.BusinessAspects.Autofac.Security;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
@@ -23,8 +24,9 @@ namespace Business.Conceretes
             _carDal = carDal;
         }
 
-        [ValidationAspect(typeof(CarValidatior))]
         [SecuredOperation("Admin,car.add")]
+        [ValidationAspect(typeof(CarValidatior))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -38,11 +40,13 @@ namespace Business.Conceretes
             return new SuccessResult();
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<Car> Get(int id)
         {
             return new SuccessDataResult<Car>(_carDal.Get(c=>c.Id == id));
@@ -68,5 +72,6 @@ namespace Business.Conceretes
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
+
     }
 }
