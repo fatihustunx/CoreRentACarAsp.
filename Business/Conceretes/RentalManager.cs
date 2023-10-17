@@ -8,6 +8,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
 using Entities.Conceretes;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +56,9 @@ namespace Business.Conceretes
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
 
-        public IDataResult<List<Rental>> GetAll()
+        public IDataResult<List<GetAllRentalDto>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
+            return new SuccessDataResult<List<GetAllRentalDto>>(_rentalDal.GetAllRentalDto());
         }
 
         public IDataResult<List<Rental>> GetAllByCarId(int carId)

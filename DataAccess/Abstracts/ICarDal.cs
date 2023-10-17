@@ -11,6 +11,7 @@ namespace DataAccess.Abstracts
 {
     public interface ICarDal:IEntityRepository<Car>
     {
+        List<GetAllCarDto> GetAll();
         List<CarDetailDto> GetCarDetails();
     }
 }

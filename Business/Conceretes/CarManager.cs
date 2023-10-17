@@ -1,4 +1,5 @@
-﻿using Business.Abstracts;
+﻿using AutoMapper;
+using Business.Abstracts;
 using Business.BusinessAspects.Autofac.Security;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -41,9 +42,9 @@ namespace Business.Conceretes
         }
 
         [CacheAspect]
-        public IDataResult<List<Car>> GetAll()
+        public IDataResult<List<GetAllCarDto>> GetAll()
         {
-           return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            return new SuccessDataResult<List<GetAllCarDto>>(_carDal.GetAll());
         }
 
         [CacheAspect]

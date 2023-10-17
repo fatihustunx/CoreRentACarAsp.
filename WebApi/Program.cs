@@ -22,6 +22,17 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("http://localhost:4200/").AllowAnyHeader().AllowAnyOrigin();
+                                  });
+            });
+
             builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
             // Call ConfigureContainer on the Host sub property
@@ -74,6 +85,8 @@ namespace WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 

@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Conceretes;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Business.Abstracts
 {
     public interface IRentalService
     {
-        IDataResult<List<Rental>> GetAll();
+        IDataResult<List<GetAllRentalDto>> GetAll();
         IResult Add(Rental rental);
         IResult Update(Rental rental);
         IResult Delete(Rental rental);

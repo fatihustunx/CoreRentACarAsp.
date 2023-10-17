@@ -44,6 +44,11 @@ namespace DataAccess.Conceretes.InMemory
             return _cars;
         }
 
+        public List<GetAllCarDto> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
         public Car GetById(int id)
         {
             return _cars.SingleOrDefault(c => c.Id == id);

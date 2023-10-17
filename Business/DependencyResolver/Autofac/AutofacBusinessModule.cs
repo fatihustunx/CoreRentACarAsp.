@@ -1,9 +1,11 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy;
+using AutoMapper;
 using Business.Abstracts;
 using Business.BusinessRules.Abstracts;
 using Business.BusinessRules.Conceretes;
 using Business.Conceretes;
+using Business.MapperProfiles.AutoMapper;
 using Castle.DynamicProxy;
 using Core.Utilities.AFiles;
 using Core.Utilities.Interceptors;
@@ -51,6 +53,23 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+            builder.Register(context => new MapperConfiguration(cfg =>
+            {
+                //Register Mapper Profile
+                cfg.AddProfile<AutoMapperProfile>();
+            }
+            )).AsSelf().SingleInstance();
+
+            builder.Register(c =>
+            {
+                //This resolves a new context that can be used later.
+                var context = c.Resolve<IComponentContext>();
+                var config = context.Resolve<MapperConfiguration>();
+                return config.CreateMapper(context.Resolve);
+            })
+            .As<IMapper>()
+            .InstancePerLifetimeScope();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
