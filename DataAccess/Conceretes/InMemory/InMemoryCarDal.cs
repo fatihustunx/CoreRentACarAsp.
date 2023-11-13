@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Conceretes.InMemory
 {
-    public class InMemoryCarDal : ICarDal
+    public class InMemoryCarDal //: ICarDal
     {
         List<Car> _cars;
 
@@ -23,49 +23,5 @@ namespace DataAccess.Conceretes.InMemory
             new Car { Id = 5,BrandId = 2,ColorId = 3,ModelYear = 2005,DailyPrice=700,Description ="beatiful a car" }};
         }
 
-        public void Add(Car car)
-        {
-            _cars.Add(car);
-        }
-
-        public void Delete(Car car)
-        {
-            Car carToDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
-            _cars?.Remove(carToDelete);
-        }
-
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter)
-        {
-            return _cars;
-        }
-
-        public List<GetAllCarDto> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Car GetById(int id)
-        {
-            return _cars.SingleOrDefault(c => c.Id == id);
-        }
-
-        public List<CarDetailDto> GetCarDetails()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Car car)
-        {
-            Car carToUpdate = _cars.SingleOrDefault(c => c.Id == car.Id);
-            carToUpdate.ColorId = car.ColorId;
-            carToUpdate.DailyPrice = car.DailyPrice;
-            carToUpdate.ModelYear = car.ModelYear;
-            carToUpdate.Description = car.Description;
-        }
     }
 }

@@ -3,6 +3,7 @@ using Business.BusinessRules.Abstracts;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstracts;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,36 @@ namespace Business.BusinessRules.Conceretes
             _rentalDal = rentalDal;
         }
 
-        public IResult checkIfRentalCarReturnDateIsNull(int carId)
+        public IDataResult<GetRentForAddDto> checkIfRentalCarRentDateIsPass(int carId, DateTime rentDay)
         {
             var result = _rentalDal.GetAll(r => r.CarId == carId);
 
-            foreach (var item in result)
+            if (result == null) { return new SuccessDataResult<GetRentForAddDto>(); }
+
+            foreach(var item in result)
             {
-                if (item.ReturnDate == null)
+                if(rentDay>=item.RentDate && rentDay < item.ReturnDate)
                 {
-                    return new ErrorResult(Messages.RentalCarIsNotReturn);
+                    return new ErrorDataResult<GetRentForAddDto>(Messages.RentalCarIsPassRentDay);
                 }
             }
-            return new SuccessResult();
+            return new SuccessDataResult<GetRentForAddDto>();
+        }
+
+        public IDataResult<GetRentForAddDto> checkIfRentalCarReturnDateIsPass(int carId, DateTime returnDay)
+        {
+            var result = _rentalDal.GetAll(r => r.CarId==carId);
+
+            if(result== null) { return new ErrorDataResult<GetRentForAddDto>(); }
+
+            foreach (var item in result)
+            {
+                if(returnDay>item.RentDate && returnDay <= item.ReturnDate)
+                {
+                    return new ErrorDataResult<GetRentForAddDto>(Messages.RentalCarIsPassReturnDay);
+                }
+            }
+            return new SuccessDataResult<GetRentForAddDto>();
         }
     }
 }

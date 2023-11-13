@@ -12,6 +12,11 @@ namespace Entities.DTOs
         public int Id { get; set; }
         public string BrandName { get; set; }
         public string ColorName { get; set; }
+        public string Name { get; set; }
+        public short ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
+        public string Description { get; set; }
+
+        public string ImgUrl { get; set; }
     }
 }

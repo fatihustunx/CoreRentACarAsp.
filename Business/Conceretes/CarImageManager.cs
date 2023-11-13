@@ -105,7 +105,7 @@ namespace Business.Conceretes
                 List<CarImage> logoS = new List<CarImage>()
                 { new CarImage { CarId=carId,
                     ImagePath=FilePaths.DefaultFiles, Date=DateTime.Now}};
-                return new ErrorDataResult<List<CarImage>>(logoS);
+                return new SuccessDataResult<List<CarImage>>(logoS);
             }
 
             return new SuccessDataResult<List<CarImage>>(result);

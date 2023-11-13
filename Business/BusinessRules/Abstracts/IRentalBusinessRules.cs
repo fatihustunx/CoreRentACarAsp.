@@ -1,4 +1,5 @@
 ﻿using Core.Utilities.Results;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Business.BusinessRules.Abstracts
 {
     public interface IRentalBusinessRules
     {
-        public IResult checkIfRentalCarReturnDateIsNull(int carId);
+        public IDataResult<GetRentForAddDto> checkIfRentalCarRentDateIsPass(int carId, DateTime rentDay);
+
+        public IDataResult<GetRentForAddDto> checkIfRentalCarReturnDateIsPass(int carId, DateTime returnDay);
     }
 }

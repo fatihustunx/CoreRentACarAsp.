@@ -15,7 +15,7 @@ namespace DataAccess.Conceretes.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, RentACarContext>, ICarDal
     {
-        public List<GetAllCarDto> GetAll()
+        public List<GetAllCarDto> GetAllCarDtos()
         {
             using (RentACarContext context = new RentACarContext())
             {
@@ -39,18 +39,22 @@ namespace DataAccess.Conceretes.EntityFramework
             }
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public CarDetailDto GetCarDetails(int id)
         {
             using (RentACarContext context = new RentACarContext())
             {
                 var result = from c in context.Cars
+                             where c.Id == id
                              join b in context.Brands
                              on c.BrandId equals b.Id
                              join clr in context.Colors
                              on c.ColorId equals clr.Id
-                             select new CarDetailDto { Id = c.Id, BrandName = b.Name, ColorName = clr.Name, DailyPrice = c.DailyPrice };
+                             select new CarDetailDto { Id = c.Id, BrandName = b.Name, ColorName = clr.Name, Name = c.Name,
+                                 ModelYear = c.ModelYear, DailyPrice = c.DailyPrice, Description = c.Description };
 
-                return result.ToList();
+#pragma warning disable CS8603 // Possible null reference return.
+                return result.SingleOrDefault();
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
     }

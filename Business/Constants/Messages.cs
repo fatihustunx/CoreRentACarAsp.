@@ -14,6 +14,16 @@ namespace Business.Constants
 
         public static string RentalCarIsNotReturn = "The rental car has not been returned yet!!";
 
+        public static string RentalDayIsNotBeforeNow = "Rental date cannot be earlier than now!";
+
+        public static string ReturnDayIsNotBeforeRentalDay = "Return day cannot be earlier than rental day!";
+
+        public static string RentalDayIsNotParsing = "Rental day is not parsing.";
+        public static string ReturnDayIsNotParsing = "Return day is not parsing.";
+
+        public static string RentalCarIsPassRentDay = "Rental car rent day is pass!";
+        public static string RentalCarIsPassReturnDay = "Rental car return day is pass!";
+
         public static string CarImagesLimitExceded = "Car images limit exceded!";
 
         public static string UserAlreadyExists = "User Already Exists!";

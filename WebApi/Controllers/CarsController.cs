@@ -16,10 +16,65 @@ namespace WebApi.Controllers
             _carService = carService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpGet("getallcardtos")]
+        public IActionResult GetAllCarDtos()
         {
-            var result = _carService.GetAll();
+            var result = _carService.GetAllCarDtos();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getallwithoutrents")]
+        public IActionResult GetAllWithoutRents()
+        {
+            var result = _carService.GetAllWithoutRents();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbybrand")]
+        public IActionResult GetByBrand(int id)
+        {
+            var result = _carService.GetAllByBrandId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbycolor")]
+        public IActionResult GetByColor(int id)
+        {
+            var result = _carService.GetAllByColorId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcardetails")]
+        public IActionResult GetCarDetails(int id)
+        {
+            var result = _carService.GetCarDetails(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyfilter")]
+        public IActionResult GetByFilter(int brandId,int colorId)
+        {
+            var result = _carService.GetAllByFilter(brandId,colorId);
             if (result.Success)
             {
                 return Ok(result);

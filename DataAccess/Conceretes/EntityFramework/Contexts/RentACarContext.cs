@@ -26,5 +26,7 @@ namespace DataAccess.Conceretes.EntityFramework.Contexts
         public DbSet<CarImage> CarImages { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
     }
 }

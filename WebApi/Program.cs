@@ -84,11 +84,15 @@ namespace WebApi
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                
             }
 
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
+
 
             app.UseAuthentication();
 

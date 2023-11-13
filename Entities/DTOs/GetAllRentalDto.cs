@@ -13,6 +13,8 @@ namespace Entities.DTOs
         public string BrandName { get; set; }
         public string FullName { get; set; }
         public DateTime RentDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
+        public DateTime ReturnDate { get; set; }
+
+        public decimal TotalCost { get; set; }
     }
 }

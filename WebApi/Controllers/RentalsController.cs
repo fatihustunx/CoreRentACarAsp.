@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Entities.Conceretes;
+using Entities.DTOs.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,10 +17,10 @@ namespace WebApi.Controllers
             _rentalService = rentalService;
         }
 
-        [HttpGet("getall")]
-        public IActionResult GetAll()
+        [HttpGet("getallrentaldtos")]
+        public IActionResult GetAllRentalDtos()
         {
-            var result = _rentalService.GetAll();
+            var result = _rentalService.GetAllRentalDtos();
             if (result.Success)
             {
                 return Ok(result);
@@ -39,14 +40,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("Add")]
-        public IActionResult Add(Rental rental)
+        public IActionResult Add(RentalForAdd rentalForAdd)
         {
-            var result = _rentalService.Add(rental);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
+            var result = _rentalService.Add(rentalForAdd);
+
+            return Ok(result);
         }
 
         [HttpPost("update")]

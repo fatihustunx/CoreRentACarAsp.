@@ -6,6 +6,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace DataAccess.Conceretes.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, RentACarContext>, IRentalDal
     {
-        public List<GetAllRentalDto> GetAllRentalDto()
+        public List<GetAllRentalDto> GetAllRentalDtos()
         {
             using (RentACarContext context = new RentACarContext())
             {
@@ -26,8 +27,12 @@ namespace DataAccess.Conceretes.EntityFramework
                              on r.CustomerId equals cr.Id
                              join u in context.Users
                              on cr.UserId equals u.Id
+
+                             where r.IsState.Equals(true)
+
                              select new GetAllRentalDto { Id = r.Id, BrandName = b.Name,
-                                 FullName = $"{u.FirstName}{" "}{u.LastName}", RentDate = r.RentDate, ReturnDate = r.ReturnDate };
+                                 FullName = $"{u.FirstName}{" "}{u.LastName}",
+                                 RentDate = r.RentDate, ReturnDate = r.ReturnDate, TotalCost = r.TotalCost };
 
 
                 return result.ToList();

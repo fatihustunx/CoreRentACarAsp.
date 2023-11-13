@@ -47,6 +47,10 @@ namespace Business.DependencyResolver.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<CarImageBusinessRules>().As<ICarImageBusinessRules>().SingleInstance();
 
+            builder.RegisterType<PayOfRentManager>().As<IRentPaymentService>().SingleInstance();
+            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+
             builder.RegisterType<FileOperations>().As<IFileOperations>().SingleInstance();
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();

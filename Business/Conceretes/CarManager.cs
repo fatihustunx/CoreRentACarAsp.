@@ -11,6 +11,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,9 +21,16 @@ namespace Business.Conceretes
     {
         ICarDal _carDal;
 
-        public CarManager(ICarDal carDal)
+        Lazy<IRentalService> _circular;
+
+        //ServiceLocator
+        //IServiceProvider
+
+        public CarManager(ICarDal carDal,
+            Lazy<IRentalService> circular)
         {
             _carDal = carDal;
+            _circular = circular;
         }
 
         [SecuredOperation("Admin,car.add")]
@@ -42,9 +50,9 @@ namespace Business.Conceretes
         }
 
         [CacheAspect]
-        public IDataResult<List<GetAllCarDto>> GetAll()
+        public IDataResult<List<GetAllCarDto>> GetAllCarDtos()
         {
-            return new SuccessDataResult<List<GetAllCarDto>>(_carDal.GetAll());
+            return new SuccessDataResult<List<GetAllCarDto>>(_carDal.GetAllCarDtos());
         }
 
         [CacheAspect]
@@ -69,10 +77,49 @@ namespace Business.Conceretes
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId));
         }
 
-        public IDataResult<List<CarDetailDto>> GetCarDetails()
+        public IDataResult<CarDetailDto> GetCarDetails(int id)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetCarDetails(id));
         }
 
+        public IDataResult<List<Car>> GetAllByFilter(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll
+                (c=> c.BrandId == brandId && c.ColorId == colorId));
+        }
+
+        public IDataResult<List<GetAllCarDto>> GetAllWithoutRents()
+            // String rentDay, String returnDay -->. 
+        {
+            var rentalList = _circular.Value.GetAll();
+            List<int> carIds = new List<int>();
+
+            var cars = _carDal.GetAllCarDtos();
+            var newList = new List<GetAllCarDto>();
+
+            foreach (var item in rentalList.Data)
+            {
+                if((DateTime.Now>=item.RentDate && DateTime.Now <= item.ReturnDate))
+                {
+                    carIds.Add(item.CarId);
+                }
+            }
+
+            foreach (var car in cars)
+            {
+                if(!carIds.Contains(car.Id))
+                {
+                    newList.Add(car);
+                }
+            }
+
+            return new SuccessDataResult<List<GetAllCarDto>>(newList);
+        }
+
+        public IDataResult<List<Car>> GetAll(Expression<Func<Car,bool>>? filter = null)
+        {
+            return filter == null ? new SuccessDataResult<List<Car>>(_carDal.GetAll()):
+                new SuccessDataResult<List<Car>>(_carDal.GetAll(filter));
+        }
     }
 }
