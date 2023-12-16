@@ -87,6 +87,8 @@ namespace WebApi
                 
             }
 
+            app.ConfigureCustomExceptionMiddleware();
+
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();

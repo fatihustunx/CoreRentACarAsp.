@@ -33,7 +33,7 @@ namespace Business.Conceretes
             _circular = circular;
         }
 
-        [SecuredOperation("Admin,car.add")]
+        //[SecuredOperation("Admin,car.add")]
         [ValidationAspect(typeof(CarValidatior))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)

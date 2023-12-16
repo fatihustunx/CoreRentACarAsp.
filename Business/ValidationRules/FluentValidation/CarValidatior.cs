@@ -21,6 +21,8 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.ModelYear).NotNull().NotEmpty();
             RuleFor(c => c.DailyPrice).NotNull().NotEmpty()
                 .GreaterThan(0);
+
+            RuleFor(c => c.Description).NotNull().NotEmpty();
         }
     }
 }
