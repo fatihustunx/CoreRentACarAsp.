@@ -12,17 +12,19 @@ namespace Core.Utilities.Business
     {
         public static DateTime Parser(string dateString)
         {
-            DateTime rentDay;
-            DateTime.TryParseExact(dateString, Format.RentalDateFormat,
-                CultureInfo.InvariantCulture, DateTimeStyles.None, out rentDay);
+            DateTime resDateTime;
 
-            return rentDay;
+            DateTime.TryParseExact(dateString, Format.newDateFormat,
+                CultureInfo.InvariantCulture, DateTimeStyles.None, out resDateTime);
+
+            return resDateTime;
         }
 
         public static bool IsParser(string dateString)
         {
             DateTime dateTime;
-            return DateTime.TryParseExact(dateString, Format.RentalDateFormat,
+
+            return DateTime.TryParseExact(dateString, Format.newDateFormat,
                 CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
         }
     }

@@ -3,51 +3,45 @@ using Entities.DTOs.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApi.Controllers
+namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
+
     [ApiController]
-    public class AuthController : ControllerBase
+
+    public class AuthController : Controller
     {
-        IAuthService _authService;
+        private IAuthService _authService;
 
-        public AuthController(IAuthService authSerice)
+        public AuthController(IAuthService authService)
         {
-            _authService = authSerice;
-        }
-
-        [HttpPost("register")]
-        public IActionResult Register(UserForRegisterDto userForRegisterDto)
-        {
-            var result = _authService.Register(userForRegisterDto);
-
-            if(result.Success)
-            {
-                var accessToken = _authService.CreateAccessToken(result.Data);
-
-                return Ok(accessToken);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
+            _authService = authService;
         }
 
         [HttpPost("login")]
-        public IActionResult Login(UserForLoginDto userForLoginDto)
+        public ActionResult Login(UserForLoginDto userForLoginDto)
         {
-            var result = _authService.Login(userForLoginDto);
+            var res = _authService.RunToLogin(userForLoginDto);
 
-            if(result.Success)
+            if (res.Success)
             {
-                var accessToken = _authService.CreateAccessToken(result.Data);
+                return Ok(res);
+            }
 
-                return Ok(accessToken);
-            }
-            else
+            return BadRequest(res);
+        }
+
+        [HttpPost("register")]
+        public ActionResult Register(UserForRegisterDto userForRegisterDto)
+        {
+            var res = _authService.RunToRegister(userForRegisterDto);
+
+            if (res.Success)
             {
-                return BadRequest(result);
+                return Ok(res);
             }
+
+            return BadRequest(res);
         }
     }
 }

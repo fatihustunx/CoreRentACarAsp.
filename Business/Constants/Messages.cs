@@ -35,5 +35,7 @@ namespace Business.Constants
         public static string AuthorizationDenied = "Authrorization Denied!!";
 
         public static string PasswordError = "Password is not correct!";
+
+        public static string AccessTokenCreated = "Access Token is Successful Createds.";
     }
 }

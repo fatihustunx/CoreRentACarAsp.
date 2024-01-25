@@ -8,6 +8,6 @@ namespace Core.Utilities.Constants
 {
     public static class Format
     {
-        public static string RentalDateFormat = "dd/MM/yyyy";
+        public static string newDateFormat = "dd/MM/yyyy";
     }
 }
